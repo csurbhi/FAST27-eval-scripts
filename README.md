@@ -1,2 +1,197 @@
 # FAST27-eval-scripts
 Evaluation scripts for FAST27 
+
+
+To evalatuate the results access to SMR drives is necessary.
+We will provide remote access to our machine that has the SMR drives for the experiments.
+
+Following test results are provided in the paper:
+1) fio tests
+2) Linux kernel parallel build
+3) ZFS resilvering.
+
+The ZFS resilvering is done on a machine with CMR drives and then it needs someone to physically yank a device and replace the CMR drive with SMR drive and rerun the test.
+This will need some co-ordination with the authors - as someone at UBC needs to yank the disk out and the AEC member to rerun the resilvering test.
+We will provide this co-ordination as per the AEC member's availability by communicating over email.
+
+#################################
+
+A. DEPENDENCIES:
+------------
+
+The evaluation depends on the following packages:
+a) parallel
+b) iostat
+c) python3.
+d) tmux
+
+Linux kernel compile steps:
+
+a) Linux kernel version: 6.6.0
+b) We have recompiled this kernel with the necessary Zoned device support. Our compiled kernel version becomes: 6.6.0-dirty. The config file for this compile is included in this github repo as config-6.0-FAST
+c) This kernel version produces a very large initrd as the .ko are unstripped
+The instructions for this are:
+https://unix.stackexchange.com/questions/270390/how-to-reduce-the-size-of-the-initrd-when-compiling-your-kernel
+
+Copied the relevant portion here:
+-----------
+You could also change the configuration of your initramfs.conf
+
+Find the file at /etc/initramfs-tools/initramfs.conf
+
+There is a setting that says MODULES=most this includes most of the modules kn your initrd image.
+
+Change it to MODULES=dep this makes the initramfs generator guess which modules to include.
+-------------
+
+Since the tests need to be completed on the UBC machine with the specialized hardware (SMR drives), the necessary packages and the compiled Linux kernel are preinstalled on these machines.
+#################################
+
+B. Reproduce the results:
+---------------
+Note: All the tests run one at a time. They cannot be run in parallel for now.
+
+Ensure that you have the right SMR drive installed by executing the following:
+
+sudo sg_inq /dev/sda  -> ensure that /dev/sda is a SMR drive.
+output should look like this:
+-----------
+standard INQUIRY:
+  PQual=0  PDT=0  RMB=0  LU_CONG=0  hot_pluggable=0  version=0x05  [SPC-3]
+  [AERC=0]  [TrmTsk=0]  NormACA=0  HiSUP=0  Resp_data_format=2
+  SCCS=0  ACC=0  TPGS=0  3PC=0  Protect=0  [BQue=0]
+  EncServ=0  MultiP=0  [MChngr=0]  [ACKREQQ=0]  Addr16=0
+  [RelAdr=0]  WBus16=0  Sync=0  [Linked=0]  [TranDis=0]  CmdQue=1
+  [SPI: Clocking=0x0  QAS=0  IUS=0]
+    length=96 (0x60)   Peripheral device type: disk
+ Vendor identification: ATA
+ Product identification: ST8000AS0022-1WL
+ Product revision level: SN01
+ Unit serial number:             Z840Y0FY
+----------------
+
+To access the scripts, do the following:
+
+cd /home/surbhi/github/FAST27-eval-scripts
+
+1. Linux kernel compile results (requires around 4 hours for all three STL tests)
+
+Note that this test - needs to be run on the machine called "sharada"
+ssh sharada
+We will provide the username and password over email.
+
+
+
+cd 5ParallelCompiles/host-ls/7GB-MiddleWaterMark
+
+
+A) host-ls:
+start tmux
+in this tmux instance - 
+	tail -f /var/log/kern.log | tee ./dmesg
+	Ctr + B + D (to detach from it)
+
+start another tmux instance
+	1) cd /home/surbhi/github/fstl
+	2) sudo ./format /dev/sda SIZE (GB)
+	3) sudo insmod lsdm.ko
+	4) Copy the last line printed by the above script.
+	This should create the /dev/dm-0 device.
+	5) cd /home/surbhi/github/FAST27-eval-scripts/Linux-kernel-compile/5ParallelCompiles/host-ls/compile5Times/150GB/7GB-MiddleWaterMark
+	6) ./start.sh
+	7) This should generate the following log files:
+		a) parallel_build_iostat.log
+		b) build_[1-5].log
+		c) dmesg
+	8) Now run the following python script to get the result file:
+
+	9) dmsetup remove TL1
+	10) rmmod lsdm.ko
+
+B) host-hybrid:
+start tmux
+in this tmux instance - 
+	tail -f /var/log/kern.log | tee ./dmesg
+	Ctr + B + D (to detach from it)
+
+start another tmux instance
+	1) cd /home/surbhi/github/hybrid-stl
+	2) sudo ./format /dev/sda SIZE (GB)
+	3) sudo insmod hybrid-stl.ko
+	4) Copy the last line printed by the above script.
+	This should create the /dev/dm-0 device.
+	5) cd /home/surbhi/github/FAST27-eval-scripts/Linux-kernel-compile/5ParallelCompiles/host-ls/compile5Times/150GB/7GB-MiddleWaterMark
+	6) ./start.sh
+	7) This should generate the following log files:
+		a) parallel_build_iostat.log
+		b) build_[1-5].log
+		c) dmesg
+	8) Now run the following python script to get the result file:
+	9) dmsetup remove TL1
+	10) rmmod hybrid-stl.ko
+
+B) device-hybrid:
+
+start a tmux instance
+	1) sudo fdisk /dev/sda
+	(Create a 150GB worth partition using the following options:
+		select "n" command to create a partition
+		select "p" command to create a primary partition
+		partition number 1
+		first section -> select the default
+		last sector -> +150G
+		select "p" to print the partition created. Make sure that the partition is indeed 150GB before you proceed further.
+	6) ./start.sh
+	7) This should generate the following log files:
+		a) parallel_build_iostat.log
+		b) build_[1-5].log
+		c) dmesg
+	8) Now run the following python script to get the result file:
+
+
+-----------------------------------
+
+B) ZFS resilvering tests:
+
+Note that this test - needs to be run on the machine called "snickers"
+ssh snickers
+We will provide the username and password over email.
+
+	1) cd /home/surbhi/github/FAST27-eval-scripts/ZFS-resilvering
+	2) create the zpool and populate its contents using the following:
+		./create-zpool.sh
+	This should populate ~5TB of the device space and should take around 2 days.
+	3)  After the device is populated, the AEC member should coordinate with the authors to yank out a CMR drive
+	and replace it with a SMR drive and eventually a CMR drive back.
+	Once the device is replaced. Go to the respective folder (host-ls, host-hybrid, device-hybrid, CMR) and every time
+	start the resilvering process. Before that is done, start the iomonitoring by this command in a tmux instance.
+	zpool iostat -v -T d -y 60 | tee ./iostat-<devicename>.out
+	4) start resilvering by:
+		cd host-ls OR
+		cd host-hybrid OR 
+		cd device-hybrid OR
+		cd CMR OR
+	Run:
+		./zfs-script.sh
+
+	In this script replace  the <DEVICE> with the zfs device we replace - this is seen in the command:
+		zpool status
+
+	Resilvering completion status can also be seen with this zpool status command.
+	The completion times should be as follows:
+	a) host-ls: /~9 hours
+	b) CMR: ~12.5 hours
+	c) host-hybrid: ~ 2 days
+	d) device-hybrid: ~ 4 days.
+
+	5) The plots can generated using this python script:
+
+
+
+--------------------------------------------------------
+
+
+
+
+
+

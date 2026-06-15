@@ -1,0 +1,189 @@
+surbhi@sharada:~/github/hybrid-stl$ sudo ./format /dev/sdb
+[sudo] password for surbhi:
+
+ main argc: 2
+
+ Opening /dev/sdb
+ /dev/sdb opened with fd: 3
+ capacity: 8001563222016
+ ZONE size: 524288
+ Nr of zones reported by disk :29809
+ Nr of zones: 719
+ nr of zones reported: 719
+ zone_count: 719
+ zonenr: 0 is a non shingled zone!
+ zonenr: 1 is a non shingled zone!
+ zonenr: 2 is a non shingled zone!
+ zonenr: 3 is a non shingled zone!
+ zonenr: 4 is a non shingled zone!
+ zonenr: 5 is a non shingled zone!
+ zonenr: 6 is a non shingled zone!
+ zonenr: 7 is a non shingled zone!
+ zonenr: 8 is a non shingled zone!
+ zonenr: 9 is a non shingled zone!
+ zonenr: 10 is a non shingled zone!
+ zonenr: 11 is a non shingled zone!
+ zonenr: 12 is a non shingled zone!
+ zonenr: 13 is a non shingled zone!
+ zonenr: 14 is a non shingled zone!
+ zonenr: 15 is a non shingled zone!
+ zonenr: 16 is a non shingled zone!
+ zonenr: 17 is a non shingled zone!
+ zonenr: 18 is a non shingled zone!
+ zonenr: 19 is a non shingled zone!
+ zonenr: 20 is a non shingled zone!
+ zonenr: 21 is a non shingled zone!
+ zonenr: 22 is a non shingled zone!
+ zonenr: 23 is a non shingled zone!
+ zonenr: 24 is a non shingled zone!
+ zonenr: 25 is a non shingled zone!
+ zonenr: 26 is a non shingled zone!
+ zonenr: 27 is a non shingled zone!
+ zonenr: 28 is a non shingled zone!
+ zonenr: 29 is a non shingled zone!
+ zonenr: 30 is a non shingled zone!
+ zonenr: 31 is a non shingled zone!
+ zonenr: 32 is a non shingled zone!
+ zonenr: 33 is a non shingled zone!
+ zonenr: 34 is a non shingled zone!
+ zonenr: 35 is a non shingled zone!
+ zonenr: 36 is a non shingled zone!
+ zonenr: 37 is a non shingled zone!
+ zonenr: 38 is a non shingled zone!
+ zonenr: 39 is a non shingled zone!
+ zonenr: 40 is a non shingled zone!
+ zonenr: 41 is a non shingled zone!
+ zonenr: 42 is a non shingled zone!
+ zonenr: 43 is a non shingled zone!
+ zonenr: 44 is a non shingled zone!
+ zonenr: 45 is a non shingled zone!
+ zonenr: 46 is a non shingled zone!
+ zonenr: 47 is a non shingled zone!
+ zonenr: 48 is a non shingled zone!
+ zonenr: 49 is a non shingled zone!
+ zonenr: 50 is a non shingled zone!
+ zonenr: 51 is a non shingled zone!
+ zonenr: 52 is a non shingled zone!
+ zonenr: 53 is a non shingled zone!
+ zonenr: 54 is a non shingled zone!
+ zonenr: 55 is a non shingled zone!
+ zonenr: 56 is a non shingled zone!
+ zonenr: 57 is a non shingled zone!
+ zonenr: 58 is a non shingled zone!
+ zonenr: 59 is a non shingled zone!
+ zonenr: 60 is a non shingled zone!
+ zonenr: 61 is a non shingled zone!
+ zonenr: 62 is a non shingled zone!
+ zonenr: 63 is a non shingled zone!
+ Number of cmr zones: 64
+ ZONE size: 524288
+ ********************************* LOG ZONE SZ: 28
+ Nr of zones reported by disk :29809
+ capacity: 8001563222016
+ ZONE size: 524288
+ Nr of zones reported by disk :29809
+ sb->zone_count: 719
+ get_max_pba zone_count: 719 log_zone_size: 28 log_sector_size: 9
+ ******* sb->max_pba: 376963072
+ get_rtm_blk_count blocksize: 4096 sizeof(struct rtm_entry): 8
+ get_rtm_blk_count nr_rtm_entries: 7733248
+ get_rtm_blk_count nr_rtm_entries_per_blk: 512
+ get_rtm_blk_count nr_rtm_blks: 15104
+ get_rtm_blk_count nr_rtm_count: 15104
+ sb->blk_count_rtm: 15104
+ sb->blk_count_ckpt: 2
+ sb->blk_count_sit: 3
+ sb->blk_count_dzit: 2
+ sb->ckpt1_pba: 16
+ sb->ckpt2_pba: 24
+ sb->dzit_pba: 32
+ sb->sit_pba: 48
+ sb->rtm_pba: 72
+ nr_lbas_in_zone: 524288
+ sb->nr_cmr_zones: 64
+
+
+ ********************************************
+
+ sb->blk_count_ckpt: 2
+ sb->blk_count_dzit: 2
+ sb->blk_count_rtm: 15104
+ sb->blk_count_sit: 3
+ metadata_blk_count: 15113
+ metadata_zone_count: 1
+ ********************************************
+
+
+
+ sb->zone_count_metadata: 1
+ sb->zone_count_cache: 117
+ sb->zone_count_data: 601
+ rtm_end_pba: 120904
+ rtm_end_blk_nr: 15113
+ Current Write frontier: tm_end_zone_nr: 1
+ sb->czone0_pba: 524288
+ Data zone pba: 61865984
+ sb->dzone0_pba: 61865984
+ Superblock written at pba: 0
+ sizeof sb: 176
+ *********************
+
+ sb->magic: 2018726988
+ sb->version 1
+ sb->log_sector_size 9
+ sb->log_block_size 12
+ sb->log_zone_size: 28
+ sb->blk_count_ckpt 2
+ sb->max_pba: 376963072
+ sb->zone_count: 719
+ Read verified!!!
+ ====================
+
+ *********************
+
+ sb->magic: 2018726988
+ sb->version 1
+ sb->log_sector_size 9
+ sb->log_block_size 12
+ sb->log_zone_size: 28
+ sb->blk_count_ckpt 2
+ sb->max_pba: 376963072
+ sb->zone_count: 719
+ Read verified!!!
+ ====================
+
+ Superblock written at pba: 8
+-----------------------------------------------------------
+
+ checkpoint written at: 16 cur_frontier_pba: 524288
+ 1) ckpt->nr_free_cache_zones: 116
+ Checkpoint written at pba: 16
+ ckpt->magic: 439041101 ckpt->hot_frontier_pba: 524288
+ sb->dzone0_pba: 61865984
+ sb->czone0_pba: 524288
+ Read ckpt, ckpt->magic: 439041101
+ hot_frontier_pba: 524288
+ ckpt->nr_free_cache_zones: 116
+-----------------------------------------------------------
+
+ Checkpoint written at offset: 16
+ Second Checkpoint written at offset: 24
+ !!!!!  dzit entries in a blk: 341
+ !!!!!  sb->blk_count_dzit: 2
+ Data zone information written
+ writing seg info tables at pba: 48
+ zone_count: 117
+ nr of sit blks: 1
+
+ Writing 1 zeroed blks, from pba: 48
+ Reading 1 zeroed blks, from pba: 48
+ Segment Information Table written
+ ** write_rtm Writing rtm blocks at pba: 72, nrblks: 15104
+ Reverse Translation map written
+ Total nr of blks in disk: 47120384
+ sb1->zone_count: 719
+ # lbas in ZONE: 524288
+ sb1->zone_count_main: 601
+ cmd: /sbin/dmsetup create TL1 --table '0 315097088 hybrid-stl /dev/sdb TL1 524288 315097088'
+
+surbhi@sharada:~/github/hybrid-stl$
