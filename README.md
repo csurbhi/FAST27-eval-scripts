@@ -80,40 +80,31 @@ To access the scripts, do the following:
 
 cd /home/surbhi/github/FAST27-eval-scripts
 
+
 1. Linux kernel compile results (requires around 4-5 hours for all three STL tests)
 -----------
 
 Note that this test - needs to be run on the machine called "sharada"
-ssh sharada
-We will provide the username and password over email.
+We will provide the instructions to access this machine over email.
 
 
+A) device-hybrid:
 
-cd 5ParallelCompiles/host-ls/7GB-MiddleWaterMark
-
-
-A) host-ls:
-start tmux
-in this tmux instance:
-	1) tail -f /var/log/kern.log | tee ./dmesg
-	2) Ctr + B + D (to detach from it)
-
-start another tmux instance:
-	1) cd /home/surbhi/github/fstl
-	2) sudo ./format /dev/sda SIZE (GB)
-	3) sudo insmod lsdm.ko
-	4) Copy the last line printed by the above script.
-	This should create the /dev/dm-0 device.
-	5) cd /home/surbhi/github/FAST27-eval-scripts/Linux-kernel-compile/5ParallelCompiles/host-ls/compile5Times/150GB/7GB-MiddleWaterMark
-	6) ./start.sh
-	7) This should generate the following log files:
-		a) parallel_build_iostat.log
-		b) build_[1-5].log
-		c) dmesg
-	8) Now run the following python script to get the result file:
-
-	9) dmsetup remove TL1
-	10) rmmod lsdm.ko
+start a tmux instance:
+1) sudo fdisk /dev/sda
+(Create a 150GB worth partition using the following options:
+		select "n" command to create a partition
+		select "p" command to create a primary partition
+		partition number 1
+		first section -> select the default
+		last sector -> +150G
+		select "p" to print the partition created. Make sure that the partition is indeed 150GB before you proceed further.
+2) ./start.sh
+3) This should generate the following log files:
+	a) parallel_build_iostat.log
+	b) build_[1-5].log
+	c) dmesg
+	
 
 B) host-hybrid:
 start tmux
@@ -137,23 +128,28 @@ start another tmux instance:
 	9) dmsetup remove TL1
 	10) rmmod hybrid-stl.ko
 
-B) device-hybrid:
+C) host-ls:
+start tmux
+in this tmux instance:
+	1) tail -f /var/log/kern.log | tee ./dmesg
+	2) Ctr + B + D (to detach from it)
 
-start a tmux instance:
-1) sudo fdisk /dev/sda
-(Create a 150GB worth partition using the following options:
-		select "n" command to create a partition
-		select "p" command to create a primary partition
-		partition number 1
-		first section -> select the default
-		last sector -> +150G
-		select "p" to print the partition created. Make sure that the partition is indeed 150GB before you proceed further.
-2) ./start.sh
-3) This should generate the following log files:
-	a) parallel_build_iostat.log
-	b) build_[1-5].log
-	c) dmesg
-	
+start another tmux instance:
+	1) cd /home/surbhi/github/fstl
+	2) sudo ./format /dev/sda SIZE (GB)
+	3) sudo insmod lsdm.ko
+	4) Copy the last line printed by the above script.
+	This should create the /dev/dm-0 device.
+	5) cd /home/surbhi/github/FAST27-eval-scripts/Linux-kernel-compile/5ParallelCompiles/host-ls/compile5Times/150GB/7GB-MiddleWaterMark
+	6) ./start.sh
+	7) This should generate the following log files:
+		a) parallel_build_iostat.log
+		b) build_[1-5].log
+		c) dmesg
+	8) dmsetup remove TL1
+	9) rmmod lsdm.ko
+
+
 Now run the following python script to get the result file:
 /home/surbhi/github/FAST27-eval-scripts/Linux-kernel-compile/FAST27_linux-compile-iostat.ipynb
 
