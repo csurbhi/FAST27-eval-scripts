@@ -55,7 +55,7 @@ Ensure that you have the right SMR drive installed by executing the following:
 
 sudo sg_inq /dev/sda  -> ensure that /dev/sda is a SMR drive.
 output should look like this:
------------
+
 standard INQUIRY:
   PQual=0  PDT=0  RMB=0  LU_CONG=0  hot_pluggable=0  version=0x05  [SPC-3]
   [AERC=0]  [TrmTsk=0]  NormACA=0  HiSUP=0  Resp_data_format=2
@@ -68,7 +68,8 @@ standard INQUIRY:
  Product identification: ST8000AS0022-1WL
  Product revision level: SN01
  Unit serial number:             Z840Y0FY
-----------------
+
+
 
 To access the scripts, do the following:
 
@@ -87,11 +88,11 @@ cd 5ParallelCompiles/host-ls/7GB-MiddleWaterMark
 
 A) host-ls:
 start tmux
-in this tmux instance - 
-	tail -f /var/log/kern.log | tee ./dmesg
-	Ctr + B + D (to detach from it)
+in this tmux instance:
+	1) tail -f /var/log/kern.log | tee ./dmesg
+	2) Ctr + B + D (to detach from it)
 
-start another tmux instance
+start another tmux instance:
 	1) cd /home/surbhi/github/fstl
 	2) sudo ./format /dev/sda SIZE (GB)
 	3) sudo insmod lsdm.ko
@@ -110,11 +111,11 @@ start another tmux instance
 
 B) host-hybrid:
 start tmux
-in this tmux instance - 
-	tail -f /var/log/kern.log | tee ./dmesg
-	Ctr + B + D (to detach from it)
+in this tmux instance:
+	1) tail -f /var/log/kern.log | tee ./dmesg
+	2) Ctr + B + D (to detach from it)
 
-start another tmux instance
+start another tmux instance:
 	1) cd /home/surbhi/github/hybrid-stl
 	2) sudo ./format /dev/sda SIZE (GB)
 	3) sudo insmod hybrid-stl.ko
@@ -132,20 +133,20 @@ start another tmux instance
 
 B) device-hybrid:
 
-start a tmux instance
-	1) sudo fdisk /dev/sda
-	(Create a 150GB worth partition using the following options:
+start a tmux instance:
+1) sudo fdisk /dev/sda
+(Create a 150GB worth partition using the following options:
 		select "n" command to create a partition
 		select "p" command to create a primary partition
 		partition number 1
 		first section -> select the default
 		last sector -> +150G
 		select "p" to print the partition created. Make sure that the partition is indeed 150GB before you proceed further.
-	6) ./start.sh
-	7) This should generate the following log files:
-		a) parallel_build_iostat.log
-		b) build_[1-5].log
-		c) dmesg
+2) ./start.sh
+3) This should generate the following log files:
+	a) parallel_build_iostat.log
+	b) build_[1-5].log
+	c) dmesg
 	
 Now run the following python script to get the result file:
 /home/surbhi/github/FAST27-eval-scripts/Linux-kernel-compile/FAST27_linux-compile-iostat.ipynb
