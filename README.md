@@ -91,6 +91,7 @@ We will provide the instructions to access this machine over email.
 A) device-hybrid:
 
 start a tmux instance:
+
 1) sudo fdisk /dev/sda
 (Create a 150GB worth partition using the following options:
 		select "n" command to create a partition
@@ -107,7 +108,9 @@ start a tmux instance:
 	
 
 B) host-hybrid:
+
 start tmux
+
 in this tmux instance:
 	1) tail -f /var/log/kern.log | tee ./dmesg
 	2) Ctr + B + D (to detach from it)
@@ -129,7 +132,9 @@ start another tmux instance:
 	10) rmmod hybrid-stl.ko
 
 C) host-ls:
+
 start tmux
+
 in this tmux instance:
 	1) tail -f /var/log/kern.log | tee ./dmesg
 	2) Ctr + B + D (to detach from it)
