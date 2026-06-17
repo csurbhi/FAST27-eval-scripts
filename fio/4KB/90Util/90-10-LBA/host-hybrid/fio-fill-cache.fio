@@ -2,18 +2,18 @@
 [random-writers]
 name=fio-rand-write
 ; Use host aware drive's stl
-filename=/dev/sda
+filename=/dev/dm-0
 numjobs=1
-bs=1M
-blockalign=1M
-io_size=45G
-size=7168G
+bs=4K
+blockalign=4K
+io_size=5G
+size=7000G
 direct=1
 ioengine=libaio
 iodepth=64
 iodepth_batch=32
 readwrite=randwrite
-; uniform random writes
+; 90/10 zipf
 random_distribution=zipf:1.0962	
 write_bw_log=./bw_log_avg
 write_lat_log=./lat_log_avg

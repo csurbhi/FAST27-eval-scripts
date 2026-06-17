@@ -4,9 +4,9 @@ name=fio-rand-write
 ; Use host aware drive's stl
 filename=/dev/sda
 numjobs=1
-bs=1M
-blockalign=1M
-io_size=45G
+bs=4K
+blockalign=4K
+io_size=5G
 size=7168G
 direct=1
 ioengine=libaio
