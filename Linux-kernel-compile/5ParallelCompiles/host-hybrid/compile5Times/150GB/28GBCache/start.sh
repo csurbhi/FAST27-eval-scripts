@@ -6,6 +6,11 @@ MOUNT_POINT="/mnt"
 SRC_DIR="/home/surbhi/github/linux"  # Path to your clean source
 LOG_DIR="$(pwd)"
 
+cd /home/surbhi/github/hybrid-stl
+sudo ./format /dev/sda 600
+sudo insmod hybrid-stl
+sudo /sbin/dmsetup create TL1 --table '0 315097088 hybrid-stl /dev/sda TL1 524288 315097088'
+
 echo "--- Starting SMR Parallel Build Evaluation ---"
 
 mkfs.ext4 $DEVICE
@@ -35,3 +40,7 @@ sleep 5  # Ensure SMR background GC or metadata updates are captured
 
 kill $IOSTAT_PID
 echo "--- Evaluation Complete ---"
+
+sudo umount /mnt
+sudo dmsetup remove TL1
+sudo rmmod hybrid-stl
