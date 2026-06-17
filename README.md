@@ -16,15 +16,7 @@ We will provide this co-ordination as per the AEC member's availability by commu
  Please contact csurbhi@cs.ubc.ca or csurbhi@gmail.com for instructions to get access to the UBC machines and for the ZFS test co-ordination.
 
 ------------
-## Contents of this repository:
-
-.
-├── Linux-kernel-compile/               # Evaluation scripts to compile 5 instances of Linux kernel 
-├── ZFS-resilvering           		# Evaluation scripts to perform ZFS silvering - needs human intervention 
-├── fio					# Evaluation scripts to run fio scripts.
-├── Reverse-Engineering			# Evaluation scripts to show the results of Reverse engineering
-└── README.md				# this file
-
+## STL source code:
 Clone the following repositories to checkout the STL source code:
 a) Host-LS:
 git clone git@github.com:csurbhi/fstl.git
@@ -292,6 +284,9 @@ uniform random tests:
 #### Pause test: (should take around 55 hours)
 cd Reverse-Engineering/pause-test
 ./pause-test.sh
+
+Python notebook to generate the plots:
+Reverse-Engineering/ContinuousPauseTest-8HoursMax.ipynb
 
 
 #### Cache size test: (you don't have to run all of these. run a few of them. Should take 5-6 hours. Use the runs for the python notebook found in that directory)
