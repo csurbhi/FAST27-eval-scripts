@@ -6,7 +6,15 @@ MOUNT_POINT="/mnt"
 SRC_DIR="/home/surbhi/github/linux"  # Path to your clean source
 LOG_DIR="$(pwd)"
 
+sudo -s
 echo "--- Starting SMR Parallel Build Evaluation ---"
+cd /home/surbhi/github/fstl
+./format /dev/sda 600
+insmod lsdm.ko
+/sbin/dmsetup create TL1 --table '0 314572800 lsdm /dev/sda TL1 524288 314572800'
+dmsetup ls
+echo 28 > /sys/kernel/lsdm_stats/middle_watermark
+cat /sys/kernel/lsdm_stats/middle_watermark
 
 mkfs.ext4 $DEVICE
 mount -t ext4 $DEVICE $MOUNT_POINT
@@ -35,3 +43,8 @@ sleep 5  # Ensure SMR background GC or metadata updates are captured
 
 kill $IOSTAT_PID
 echo "--- Evaluation Complete ---"
+
+sudo umount /mnt
+sudo dmsetup remove TL1
+sudo rmmod lsdm.ko
+
