@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Configuration
-DEVICE="/dev/sdb1"
+DEVICE="/dev/sda1"
 MOUNT_POINT="/mnt"
 SRC_DIR="/home/surbhi/github/linux"  # Path to your clean source
 LOG_DIR="$(pwd)"
@@ -35,3 +35,4 @@ sleep 5  # Ensure SMR background GC or metadata updates are captured
 
 kill $IOSTAT_PID
 echo "--- Evaluation Complete ---"
+umount /mnt
