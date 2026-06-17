@@ -1,6 +1,7 @@
 #!/bin/bash +x
 
-sudo /home/surbhi/github/hybrid-stl/format /dev/sda 0 8
+#nr cache zones is 7 + 4 watermark + 1 metadata
+sudo /home/surbhi/github/hybrid-stl/format /dev/sda 0 3
 sudo /home/surbhi/github/hybrid-stl/populate /dev/sda 6553
 sudo insmod hybrid-stl.ko
 echo "Creating device"

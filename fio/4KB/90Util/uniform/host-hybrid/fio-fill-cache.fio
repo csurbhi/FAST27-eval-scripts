@@ -1,0 +1,20 @@
+; fio-rand-write.job for fiotest
+[random-writers]
+name=fio-rand-write
+; Use host aware drive's stl
+filename=/dev/dm-0
+numjobs=1
+bs=4K
+blockalign=4K
+io_size=5G
+size=7000G
+direct=1
+ioengine=libaio
+iodepth=64
+iodepth_batch=32
+readwrite=randwrite
+; 90/10 zipf
+random_distribution=uniform
+write_bw_log=./bw_log_avg
+write_lat_log=./lat_log_avg
+write_iops_log=./iops_log_avg
